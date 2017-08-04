@@ -1,4 +1,7 @@
+import { ProdcutService, Product } from './../share/prodcut.service';
 import {Component, OnInit} from '@angular/core';
+import {FormControl} from "@angular/forms";
+import 'rxjs/Rx'
 
 @Component({
   selector: 'app-product',
@@ -6,27 +9,21 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  private products: Array<Product>;
+  protected products:Product[];
+  private keyword:string;
 
-  constructor() {
+  private titleFilter:FormControl=new FormControl();
+
+  constructor(private service:ProdcutService) {
+    this.titleFilter.valueChanges.debounceTime(500).subscribe(
+      value=>this.keyword=value
+    );
   }
 
   ngOnInit() {
-    this.products = [
-      new Product(1, '第一个商品', 1.99, 3.5, '这是第一个商品，我在学习金融杠杆', ['电子产品', '硬件产品', '美容产品']),
-      new Product(2, '第2个商品', 1.99, 3.5, '这是第一个商品，我在学习金融杠杆', ['电子产品', '硬件产品', '美容产品']),
-      new Product(3, '第3个商品', 1.99, 3.5, '这是第一个商品，我在学习金融杠杆', ['电子产品', '硬件产品', '美容产品']),
-      new Product(4, '第4个商品', 1.99, 3.5, '这是第一个商品，我在学习金融杠杆', ['电子产品', '硬件产品', '美容产品']),
-      new Product(5, '第5个商品', 1.99, 3.5, '这是第一个商品，我在学习金融杠杆', ['电子产品', '硬件产品', '美容产品']),
-      new Product(6, '第6个商品', 1.99, 3.5, '这是第一个商品，我在学习金融杠杆', ['电子产品', '硬件产品', '美容产品']),
-    ];
+    this.products=this.service.getProducts();
   }
 
 }
 
-export class Product {
-  constructor(public id: number, public title: String,
-              public price: number,
-              public ratting: number, public desc: string, public categories: Array<string>) {
-  }
-}
+

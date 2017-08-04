@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-stars',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StarsComponent implements OnInit {
 
+  protected stars: boolean[];
+  @Input()
+  protected rating= 0;
   constructor() { }
 
   ngOnInit() {
+    this.stars = [false, false, true, true, true];
   }
 
 }

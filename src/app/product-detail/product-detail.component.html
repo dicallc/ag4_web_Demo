@@ -1,0 +1,41 @@
+<div class="card ">
+  <img class="card-img-top" src="http://placehold.it/320x150"/>
+  <div class="card-block">
+    <div class="card-title" style="display: flex;flex-wrap: nowrap;justify-content: space-between">
+      <h4 ><a>{{product.title}}</a></h4>
+      <h4> {{product.price}}</h4>
+    </div>
+    <!--<p class="card-text">{{product.desc}}</p>-->
+    <div style="padding-left: 20px">
+      <ngb-rating [(rate)]="product.rating" max="5"></ngb-rating>
+      <span>{{product.rating| number:'1.0-2'}}星</span>
+    </div>
+  </div>
+</div>
+  <div class="row" *ngFor="let comment of comments" style="margin-top: 15px;margin-left: 5px;margin-right: 5px;background-color: gray">
+    <div class="col-md-12 card">
+      <div>
+        <ngb-rating [(rate)]="comment.rating" max="5" readonly="true"></ngb-rating>
+        <span>{{comment.rating}}星</span>
+      </div>
+
+      <div style="display: flex;justify-content: space-between">
+        <span>{{comment.user}}</span>
+        <span >{{comment.timestamp}}</span>
+      </div>
+      <p>
+        {{comment.content}}
+      </p>
+
+    </div>
+</div>
+<div  style="margin-top: 10px;border: 1px solid #dedede;padding: 10px">
+  <ngb-rating [(rate)]="comment_ratting" max="5" ></ngb-rating>
+  <div>
+    <textarea [(ngModel)]="newComment">
+    </textarea>
+  </div>
+  <div>
+    <button class="btn btn-success"  (click)="addComment()">提交</button>
+  </div>
+</div>
